@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>事件</title>
+	<link rel="stylesheet" type="text/css" href="../css/javas.css" id="meLink">
+</head>
+<script type="text/javascript">
+	
+    window.onload = function() {
+         //1
+         /*var btn = document.getElementById("btn");
+        //事件处理程序
+        btn.addEventListener('click', function() {
+            alert(this.id);
+        }, false);
+        btn.addEventListener("click", function() {
+            alert("hello world");
+        });
+        //删除事件处理程序
+        btn.removeEventListener("click",function(){
+            alert(this.id);
+        },false);  */  //参数相同但是完全不同的两个函数
+
+        //2
+        //若想删除，必须传入完全一个完全相同的函数
+        /*var btn = document.getElementById("btn");
+        var handler = function(){
+            alert("aaaa");
+        };
+        btn.addEventListener("click",handler,false);
+        btn.removeEventListener("click",handler,false);*/
+   
+        //3
+        /*var btn = document.getElementById("btn"); 
+        btn.attachEvent("onclick",function(){
+            alert("aaaa");
+        });  */
+
+        //4
+        /*var btn = document.getElementById("btn")
+        var EventUtil = {
+          
+         addHandler:function(element,type,handle){
+        if(element.addEventListener){
+          element.addEventListener(type,handler,false);
+        }else if(element.attachEvent){
+          element.attachEvent("on"+type,handler);
+        }else{
+          element["on"+type] = handler;
+        }
+      },
+      removeHandler:function(element,type,handler){
+        if (element.removeEventListener) {
+          element.removeEventListener(type,handler,false);
+        }else if(element.detachEvent){
+          element.detachEvent("on"+type,handler);
+        }else{
+          element["on"+type] = null;
+        }
+      }
+     }
+
+     var handler = function()
+     {
+      alert("clicked");
+     };
+     EventUtil.addHandler(btn,"click",handler);
+     EventUtil.removeHandler(btn,"click",handler);   */
+ 
+     //5、显示由event.tpye属性表示的事件类型
+     /*var btn = document.getElementById("btn");
+     btn.onclick = function(event){
+     	alert(event.type);    
+     };
+     btn.addEventListener("click",function(event){
+     	alert(event.type);  
+     },false);*/
+     //6
+   /* var btn = document.getElementById("btn");
+     btn.onclick = function(event){
+     	alert(event.currentTarget === this);    
+     	alert(event.target === this);   
+     };*/
+    /* document.body.onclick = function(event){
+     	alert(event.currentTarget === document.body);    //ture
+     	alert(this === document.body);   //ture
+     	alert(event.target === document.getElementById('btn'));
+     }*/
+      //由于按钮上并没有注册事件处理程序，结果click事件就冒泡到了document.body，在哪里事件才得到了处理
+      //通过函数处理多个事件可以用type属性；
+      /*var btn = document.getElementById('btn');
+      var handler = function(event){
+      	switch(event.type){
+      		case "click":
+      		alert("clicked");
+      		break;
+
+      		case "mouseover" :
+      		event.target.style.backgroundColor = "red";
+      		break;
+      		case "mouseout" :
+      		event.target.style.backgroundColor = "";
+      		break;
+      	}
+      };
+      //通过检测event.type属性，让函数能够确定发生了什么时间，并执行相应的操作
+      btn.onclick = handler;
+      btn.onmouseover = handler;
+      btn.onmouseout = handler; 
+      //阻止特定事件的默认行为
+      //只有canselable（表明是否可以取消事件的默认行为）属性设置为ture的事件，才可以取消
+      btn.onclick = function(event){
+      	event.preventDafault();
+      }*/
+      //7，直接添加到一个按钮事件处理程序即可
+      /*var btn = document.getElementById("btn");
+       btn.onclick = function(event){
+       	    alert("Clicked");
+       	    event.stopPropagation();
+       	    //从而避免触发注册在document.body上面的事件处理程序
+       }
+       document.body.onclick = function(event){
+       	     alert("Body clicked");
+       }*/
+
+       //eventPhase 属性
+       /*var btn = document.getElementById("btn");
+       btn.onclick = function(event){
+       	    alert(event.eventPhase);   
+       }
+       document.body.addEventListener("click", function(event) {
+            alert(event.eventPhase);
+        },true);
+       document.body.onclick = function(event){
+       	     alert(event.eventPhase);
+       }*/
+       //8跨浏览器的事件对象
+ /*      var btn = document.getElementById("btn");
+       var EventUtil = {
+       	addHandler: function(element,type,handler){
+             if(element.addEventListener){
+               element.addEventListener(type,handler,false);
+             }else if(element.attachEvent){
+               element.attachEvent("on"+type,handler);
+             }else{
+               element["on"+type] = handler;
+             }
+       	},
+       //返回event对象的引用
+       getEvent:function(event){
+       	return event?event : window.event;
+       },
+       //返回事件目标
+       getTarget:function(event){
+       	return event.target||event.srcElement;
+       },
+       //取消事件默认
+       preventDafault:function(event){
+       	if(event,preventDafault){
+       		event.preventDafault();
+       	}else{
+       	    event.returnValue = false;
+       }
+     },
+       removeHandler:function(element,type,handler){
+        if (element.removeEventListener) {
+          element.removeEventListener(type,handler,false);
+        }else if(element.detachEvent){
+          element.detachEvent("on"+type,handler);
+        }else{
+          element["on"+type] = null;
+        }
+      },
+      stopPropagation:function(event){
+      	if(event.stopPropagation){
+      		event.stopPropagation();
+      	}else{
+      	event.cancelBubble = ture;
+      }
+  }
+
+ };
+ var btn = document.getElementById("btn");
+ btn.onclick = function(event){
+ 	alert("Clicked")
+ 	event = EventUtil.getEvent(event);
+ 	EventUtil.stopPropagation(event);
+ };
+ document.body.onclick = function(){
+ 	alert("body clicked")
+ }*/
+    //
+    /*document.onmouseover = function()
+    {
+    	var oEvent = event;
+    	var oDiv = document.getElementById('div1');
+    	var scrollTop = document.documentElement.scrollTop||document.body.scrollTop
+    	var scrollLeft = document.documentElement.scrollLeft||document.body.scrollLeft;
+
+    	oDiv.style.left = oEvent.clientX + 'px';
+    	oDiv.style.top = oEvent.clientY + 'px';
+    }*/
+    /*var oDiv = document.getElementById('div1');
+    document.onkeydown = function(){
+    	var oEvent = event;
+    	var oDiv = document.getElementById('div1');
+    	//alert(oEvent.keyCode);
+    	//offsetWidth获取实际宽度;
+    	if(oEvent.keyCode == 37)  //左键码值
+    	{
+    		oDiv.style.left = oDiv.offsetLeft-10+'px';
+    	}
+    	else if(oEvent.keyCode == 39)  //右键码值
+    	{
+    		oDiv.style.left = oDiv.offsetLeft+10+'px';
+    	}
+    	else if(oEvent.keyCode == 38)  //上键码值
+    	{
+    		oDiv.style.top = oDiv.offsetTop-10+'px';
+    	}
+    	else if(oEvent.keyCode == 40)  //下键码值
+    	{
+    		oDiv.style.top = oDiv.offsetTop+10+'px';
+    	}
+    }*/
+
+   /* var oTxt1 = document.getElementById('txt1');
+    var oTxt2 = document.getElementById('txt2');
+    var oBtn1 = document.getElementById('btn1');
+
+    oBtn1.onclick = function()
+    {
+    	oTxt1.value += oTxt2.value+'\n';
+    	oTxt2.value = "";
+    };
+    oTxt2.onkeydown = function(ev)
+    {
+    	var oEvent = event||ev;
+    	if(oEvent.ctrlkey && oEvent.keyCode == 13)
+    	{
+    		oTxt1.value += oTxt2.value + '\n';
+    		oTxt2.value = "";
+    	}
+    };*/
+    
+
+}
+</script>
+
+    
+
+<body>
+	<input id="btn" type="button" name="" value="click">
+    <!-- <div id="div1"></div>
+    <textarea id="txt1"></textarea>
+    <textarea id="txt2"></textarea>
+    <input type="button" name="" id="btn1" value="提交">
+    <div class="div1">
+    	<div class="div2"></div>
+    	<div class="div3"></div>
+    </div> -->
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+    
+
+    <style type="text/css">
+    *{
+    	margin: 0;
+    	padding: 0;
+    }
+    ul{
+    	list-style: none;
+    }
+    	.box{
+    		width: 960px;
+    		height: 570px;
+    		border: 1px black solid;
+    		margin: 30px auto;
+    	}
+    	.box ul{
+    		display: flex;/*弹性和盒模型*/
+    		height: 570px;
+    		flex-wrap: wrap;
+    		justify-content: space-between;
+    		align-content: space-between;
+    	}
+    	.box ul li{
+    		margin: auto;
+    		width: 216px;
+    		height: 167px;
+    		background-image: url();
+    	}
+    </style>
+    <script type="text/javascript">
+    	var box = 
+    	/*
+           需求分析：
+             1.动态生成页面的元素，ul\li a\span,添加到页面中，
+             2.做事件绑定，事件监听，事件委托；
+             判断事件时那个事件（
+             人物：li
+             移入：onmouseenter;
+             移出：onmouseleave;
+             地点：鼠标触发事件的位置在li标签的哪里
+               坐标分析：通过鼠标位置和盒子的坐标计算出边框触发的情况；
+               设置样式属性：
+             ）
+    	   */
+    </script>
+</head>
+<body>
+    <div class="box">
+    	<ul>
+    		<li>
+    			<a href=""><span class="front-face"></span></a>
+    			<a href=""><span class="back-face"></span></a>
+    		</li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    		<li></li>
+    	</ul>
+    </div>
+</body>
+</html>

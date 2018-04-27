@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>多运动并行</title>
+	<link rel="stylesheet" type="text/css" href="../css/多运动.css">
+</head>
+<script type="text/javascript">
+	window.onload=function()
+	{
+        var oDiv1=document.getElementsByTagName('div');
+
+            oDiv1[0].onmouseover=function()
+             {
+        	     startMove(this,'width',300,function(){
+        	     	startMove(this,'height',300);	
+        	     });
+             }
+            oDiv1[0].onmouseout=function()
+             {
+        	     startMove(this,'width',100);
+             }
+        
+
+	}
+
+ //用offsetwidth获取宽度，会受到样式的影响；
+ //引出currentStyle,通过currentStyle就可以获取到通过内联或外部引用的CSS样式的值了
+
+    function getStyle(obj,attr)
+    {
+    	if(obj.currentStyle)
+    	{
+    		return obj.currentStyle(attr);
+    	}
+    	else
+    	{
+    		return getComputedStyle(obj,false)[attr];
+    	}
+    };
+//当地一个在还在移动时，定时器关掉会被卡在半截；
+//多个物体拥有多个定时器index；
+
+	function startMove(obj,attr,iTarget,fn)
+	{
+		clearInterval(obj.timer);   //关掉每个DIV自己的定时器
+		obj.timer=setInterval(function(){
+
+			var iCur=0;
+			if(attr=='opacity')
+			{
+				iCur=parseFloat(getStyle(obj,attr))*100;
+			}
+			else
+			{
+				iCur=parseInt(getStyle(obj,attr));
+			}
+			//通过getstyle函数获取盒子的最终css值；
+			var iSpeed=(iTarget-iCur)/8;
+
+			iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+
+			if(iCur==iTarget)
+			{
+				clearInterval(obj.timer);
+				if(fn)
+				{
+					fn();
+				}
+			}
+			else{
+				if(attr=='opacity')
+				{
+                    obj.style.filter='alpha(opacity:'+(iCur.iSpeed)+')';
+				    obj.style.opacity=(iCur.iSpeed)/100;
+				}
+				else
+				{
+					obj.style[attr]=iCur+iSpeed+'px';
+				}
+			}
+		},30); 
+	}
+</script>
+<body>
+	<div></div>
+	<div></div>
+	<div></div>
+
+</body>
+</html>

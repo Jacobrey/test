@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/淡入淡出.css">
+</head>
+<script type="text/javascript">
+	window.onload=function(){
+		var oImg=document.getElementById('img1');
+
+		oImg.onmouseover=function()
+		{
+			starMove(100);
+		}
+		oImg.onmouseout=function()
+		{
+			starMove(30);
+		}
+
+		var oBtn=document.getElementById('btn1');
+		oBtn.onclick=function()
+		{
+			toMove(300);
+		}
+
+
+		var oDiv2=document.getElementById('div2');
+		var ScrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+		//滚动条的高度；可视区距离页面顶部的距离
+console.log(ScrollTop);
+		//oDiv2.style.top=scrollTop+(document.documentElement.clientHeight-oDiv2.offsetHeight)/2+'px';
+		//document.documentElement.clientHeight:可视页面的高
+		var t=ScrollTop+(document.documentElement.clientHeight-oDiv2.offsetHeight)/2;
+		
+		startMove2(parseInt(t));
+	}
+	var timer=null;
+
+	var alpha=30;
+	//图片当前的透明度；
+//透明度
+	function starMove(iTarget){
+		var oImg=document.getElementById('img1');
+
+		clearInterval(timer2);
+		timer=setInterval(function(){
+
+			var iSpeed=0;
+			if(alpha<iTarget)
+			{
+                 iSpeed=1;
+			}
+			else
+			{
+				iSpeed=-1;
+			}
+			if (alpha==iTarget)
+			{
+				clearInterval(timer);
+			}
+			else{
+				alpha+=iSpeed;
+
+				oImg.style.filter='alpha(opacity:'+alpha+')';
+				oImg.style.opacity=alpha/100;
+				document.title=alpha;
+
+ 			}
+		})
+	};
+
+
+//缓冲运动
+	var timer1=null;
+	function toMove(iTarget1)
+	{
+		var oDiv=document.getElementById('div1');
+		/*var oBtn=document.getElementById('btn1');*/
+
+		clearInterval(timer1); 
+
+		timer1=setInterval(function(){
+			//自动取整所以到不了300px;
+			var iSpeed1=(iTarget1-oDiv.offsetLeft)/8;//缓慢移动；
+			if(iSpeed1>0)
+			{
+				iSpeed1=Math.ceil(iSpeed1);//向上取整
+			}
+			else
+			{
+				iSpeed1=Math.floor(iSpeed1);  //自动向下取整；
+			}
+			if (oDiv.offsetLeft==iTarget1) {
+				clearInterval(timer1);
+			}
+			else
+			{
+				oDiv.style.left=oDiv.offsetLeft+iSpeed1+'px';
+			}
+		},30)
+
+	}
+
+	var  timer2=null;
+	function startMove2(iTarget2)
+	{
+		var oDiv2=document.getElementById('div2');
+    clearInterval(timer2);
+    
+    timer2=setInterval(function(){
+    	
+    	var iSpeed2=(iTarget2-oDiv2.offsetTop)/8;  //缓冲速度
+
+    	iSpeed2=iSpeed2>0?Math.ceil(iSpeed2):Math.floor(iSpeed2);
+    	//判读向上取整，或者向下取整；
+
+    	if(oDiv2.offsetTop==iTarget2)
+    	{
+    		clearInterval(timer2);
+    	}
+    	else{
+    		oDiv2.style.top=oDiv2.offsetTop+iSpeed2+'px';
+    	}
+    },30);
+
+	}
+</script>
+<body>
+    <input id="btn1" type="button" name="" value="开始滚动">
+    <div id="div1"></div>
+    <span style="width: 1px;height: 300px;background:black;position: absolute;left: 300px; top: 0px;"></span>
+    <br/>
+    <img id="img1" src="../image/_图像_.png">
+    <div id="div2"></div>
+     
+</body>
+</html>

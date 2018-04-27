@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>document</title>
+	<style type="text/css">
+	body{
+		height: 1500px;
+	}
+	#div2{
+	width: 100px ;
+	height: 100px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background:red;
+	}
+	</style>
+	<script type="text/javascript">
+	var  timer2=null;
+	function startMove2(iTarget2)
+	{
+		var oDiv2=document.getElementById('div2');
+    	clearInterval(timer2);
+    
+    	timer2=setInterval(function(){
+    	
+    		var iSpeed2=(iTarget2-oDiv2.offsetTop)/8;  //缓冲速度
+    		console.log(iTarget2);
+    		iSpeed2=iSpeed2>0?Math.ceil(iSpeed2):Math.floor(iSpeed2);
+    		//判读向上取整，或者向下取整；
+
+    		if(oDiv2.offsetTop==iTarget2)
+    		{
+    			clearInterval(timer2);
+    		}
+    		else{
+    			oDiv2.style.top=oDiv2.offsetTop+iSpeed2+'px';
+    		}
+   		},30);
+	}
+    window.onscroll=function (){
+		var oDiv2=document.getElementById('div2');
+		var ScrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+		//滚动条的高度；可视区距离页面顶部的距离
+		//document.documentElement.clientHeight:可视页面的高
+		var t=ScrollTop+(document.documentElement.clientHeight-oDiv2.offsetHeight)/2;
+		startMove2(parseInt(t));
+	}
+	</script>
+</head>
+<body>
+	<div id="div2"></div>
+</body>
+</html>

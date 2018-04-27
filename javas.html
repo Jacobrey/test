@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/javas.css">
+	<script type="text/javascript">
+
+    /* // 返回ID为'test'的节点：
+     var test = document.getElementById('test');
+
+     // 先定位ID为'test-table'的节点，再返回其内部所有tr节点：
+     var trs = document.getElementById('test-table').getElementsByTagName('tr');
+
+    // 先定位ID为'test-div'的节点，再返回其内部所有class包含red的节点：
+     var reds = document.getElementById('test-div').getElementsByClassName('red');
+
+    // 获取节点test下的所有直属子节点:
+     var cs = test.children;
+
+    // 获取节点test下第一个、最后一个子节点：
+     var first = test.firstElementChild;
+     var last = test.lastElementChild;
+*/
+
+/*// 通过querySelector获取ID为q1的节点：
+var q1 = document.querySelector('#q1');
+//取body元素
+var body = doucument.querySelector('body');
+//取类为selected的第一个元素
+ var selected = doucument.querySelector('.selected');
+ //取类为button的第一个图像元素；
+ var iimg = document.body.querySelector('img.button');
+
+// 通过querySelectorAll获取q1节点内的符合条件的所有节点：
+var ps = q1.querySelectorAll('div.highlighted > p');
+//取类为selected的第所有元素
+var selecteds = doucument.querySelectorAll('.selected');
+*/
+  
+    /* window.onload=function()
+     {
+        var  oBut=document.getElementById('bb');
+        var  oUll=document.getElementById('ull');
+
+        oBut.onclick=function()
+        {
+           var oLi=document.createElement('li');
+           oUll.appendChild(oLi);
+        }
+     }*/
+
+     
+	</script>
+  <script type="text/javascript">
+    /*function showmessage()
+    {
+      alert("hello world!");
+    }*/
+     window.onload = function () {
+      var btn = document.getElementById('myBtn');
+     btn.addEventListener("click",function(){
+      alert("aaaa");
+     },false);
+     btn.addEventListener("click",function(){
+      alert("bbbbb");
+     },false);  
+     }
+     btn.removeEventListener("click",function(){
+      alert("bbbbb");
+     },false);
+     var handler = function(){
+      alert("aaaa");
+    };
+    btn.addEventListener("click",handler,false);
+    btn.removeEventListener("click",handler,false);
+
+
+    btn.attachEvent("onclick",function(){
+      alert("aaaa");
+    })
+
+     var EventUtil = {
+      addHandler:function(element,type,handle){
+        if(element.addEventListener){
+          element.addEventListener(type,handler,false);
+        }else if(element.attachEvent){
+          element.attachEvent("on"+type,handler);
+        }else{
+          element["on"+type] = handler;
+        }
+      }
+      removeHandler:function(element,type,handler){
+        if (element.removeEventListener) {
+          element.removeEventListener(type,handler,false);
+        }else if(element.detachEvent){
+          element.detachEvent("on"+type,handler);
+        }else{
+          element["on"+type] = null;
+        }
+      }
+     }
+
+     var handler = function()
+     {
+      alert("clicked");
+     };
+     EventUtil.addHandler(btn,"click",handler);
+    EventUtil.removerHandler(btn,"click",handler);
+  </script>
+</head>
+<body>
+   <input id="bb" type="button" name="" value="增值">
+   <ol id="ull">
+     <li>aaa</li>
+   </ol>
+   <div id="mydiv"></div>
+   <input type="button" name="" value="Click me" onclick="showmessage()" /> 
+   <input id="myBtn" type="button" name="" value="Click me" /> 
+</body>
+</html>
